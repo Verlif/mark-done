@@ -45,23 +45,32 @@ public class SimpleLineItem implements InlineBuilder {
     }
 
     /**
-     * 向当前的行元素中填充一行内容
+     * 向当前的行元素中添加新的一行内容
      *
      * @param line 填充的内容文本
      * @return 当前的行元素
      */
     public SimpleLineItem line(String line) {
-        tempStrBuilder.append(line).append("\n\n");
+        line();
+        tempStrBuilder.append(line);
+        line();
         return this;
     }
 
     /**
-     * 向当前的行元素中填充空行
+     * 向当前的行元素中添加新的一行内容
      *
      * @return 当前的行元素
      */
     public SimpleLineItem line() {
-        tempStrBuilder.append("\n");
+        int length = tempStrBuilder.length();
+        if (length > 0 && tempStrBuilder.charAt(length - 1) != '\n') {
+            tempStrBuilder.append("\n");
+            length++;
+            if (length > 0 && tempStrBuilder.charAt(length - 2) != '\n') {
+                tempStrBuilder.append("\n");
+            }
+        }
         return this;
     }
 

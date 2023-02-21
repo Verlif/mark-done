@@ -2,9 +2,9 @@ package idea.verlif.markdone.builder.block;
 
 import idea.verlif.markdone.builder.BlockBuilder;
 
-public class DisorderedListBlockItem extends BaseBlockItem {
+public class DisorderedItem extends BaseBlockItem {
 
-    public DisorderedListBlockItem() {
+    public DisorderedItem() {
     }
 
     /**
@@ -12,7 +12,7 @@ public class DisorderedListBlockItem extends BaseBlockItem {
      *
      * @param level 位置层级，一般表示列表内的不同层级
      */
-    public DisorderedListBlockItem(int level) {
+    public DisorderedItem(int level) {
         super(level);
     }
 

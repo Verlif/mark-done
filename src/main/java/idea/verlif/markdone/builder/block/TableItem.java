@@ -2,16 +2,17 @@ package idea.verlif.markdone.builder.block;
 
 import java.util.ArrayList;
 
-public class TableBlockItem extends BaseBlockItem {
+public class TableItem extends BaseBlockItem {
 
-    public TableBlockItem() {}
+    public TableItem() {
+    }
 
     /**
      * 基础块元素构造器
      *
      * @param level 位置层级，一般表示列表内的不同层级
      */
-    public TableBlockItem(int level) {
+    public TableItem(int level) {
         super(level);
     }
 
@@ -63,18 +64,44 @@ public class TableBlockItem extends BaseBlockItem {
             this.titleEnd = false;
         }
 
+        /**
+         * 批量添加标题。列对其方式默认靠左。
+         *
+         * @param titles 标题列表
+         */
         public TableBuilder titles(String... titles) {
+            return titles(FLOW.LEFT, titles);
+        }
+
+        /**
+         * 批量添加标题
+         *
+         * @param flow   列对其方式
+         * @param titles 标题列表
+         */
+        public TableBuilder titles(FLOW flow, String... titles) {
             for (String title : titles) {
-                infos.add(new TitleInfo(title, FLOW.LEFT));
+                infos.add(new TitleInfo(title, flow));
             }
             return this;
         }
 
+        /**
+         * 添加标题
+         *
+         * @param name 标题名称
+         * @param flow 列对其方式
+         */
         public TableBuilder title(String name, FLOW flow) {
             infos.add(new TitleInfo(name, flow));
             return this;
         }
 
+        /**
+         * 表格的一行数据。请勿使用两次{@code values(Object...)}来填充一行数据
+         *
+         * @param values 数据列表
+         */
         public TableBuilder values(Object... values) {
             if (!titleEnd) {
                 outputTitle();
@@ -110,6 +137,9 @@ public class TableBlockItem extends BaseBlockItem {
             line(sb.toString());
         }
 
+        /**
+         * 重复标题，用于另开表格使用当前标题展示数据
+         */
         public TableBuilder repeatTitle() {
             this.titleEnd = false;
             line();

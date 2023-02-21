@@ -1,15 +1,15 @@
 package idea.verlif.markdone.builder.block;
 
-public class LineBlockItem extends BaseBlockItem {
+public class LineItem extends BaseBlockItem {
 
-    public LineBlockItem() {}
+    public LineItem() {}
 
     /**
      * 基础块元素构造器
      *
      * @param level 位置层级，一般表示列表内的不同层级
      */
-    public LineBlockItem(int level) {
+    public LineItem(int level) {
         super(level);
     }
 

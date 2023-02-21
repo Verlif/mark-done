@@ -4,6 +4,7 @@ import idea.verlif.markdone.builder.BlockBuilder;
 import idea.verlif.markdone.builder.Inline.SimpleStyle;
 import idea.verlif.markdone.builder.InlineBuilder;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -105,7 +106,23 @@ public class MarkDone {
      */
     public class Editor {
 
+        protected final Map<String, String> referenceMap;
+        protected int index;
+
         private Editor() {
+            referenceMap = new HashMap<>();
+            index = 0;
+        }
+
+        /**
+         * 添加内容与脚注，并自动生成脚注标签
+         *
+         * @param content     添加的文本内容
+         * @param description 脚注内容
+         * @return 带脚注的内容文本
+         */
+        public synchronized String footnote(String content, String description) {
+            return footnote(content, String.valueOf(++index), description);
         }
 
         /**
@@ -122,9 +139,39 @@ public class MarkDone {
         }
 
         /**
+         * 添加参考链接，并自动生成链接标题
+         *
+         * @param content 内容
+         * @param url     链接地址
+         * @return 带链接的内容
+         */
+        public synchronized String reference(String content, String url) {
+            String title = referenceMap.get(content);
+            if (title == null) {
+                title = String.valueOf(++index);
+                referenceMap.put(content, title);
+                footer.append("[").append(title).append("]: ").append(url).append(" \"").append(content).append("\"\n");
+            }
+            return "[" + content + "][" + title + "]";
+        }
+
+        /**
+         * 添加参考链接
+         *
+         * @param content 内容
+         * @param title   链接标题
+         * @param url     链接地址
+         * @return 带链接的内容
+         */
+        public synchronized String reference(String content, String title, String url) {
+            footer.append("[").append(title).append("]: ").append(url).append(" \"").append(content).append("\"\n");
+            return "[" + content + "][" + title + "]";
+        }
+
+        /**
          * 输出装饰文本
          *
-         * @param content         内容文本
+         * @param content     内容文本
          * @param simpleStyle 装饰规则
          * @return 装饰后文本内容
          */

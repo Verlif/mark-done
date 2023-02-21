@@ -12,8 +12,8 @@ import idea.verlif.markdone.builder.BlockBuilder;
  */
 public abstract class BaseBlockItem implements BlockBuilder {
 
-    private int level;
-    private final StringBuilder sb;
+    protected int level;
+    protected final StringBuilder sb;
 
     public BaseBlockItem() {
         this(1);
@@ -36,7 +36,11 @@ public abstract class BaseBlockItem implements BlockBuilder {
      */
     @Override
     public void levelFrom(int level) {
-        this.level = level;
+        if (level < 1) {
+            this.level = 1;
+        } else {
+            this.level = level;
+        }
     }
 
     /**
@@ -70,6 +74,8 @@ public abstract class BaseBlockItem implements BlockBuilder {
      * 构建器
      */
     public class Builder {
+
+        protected Builder() {}
 
         /**
          * 使用块级构建器填充内容

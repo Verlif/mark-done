@@ -15,12 +15,6 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>com.github.Verlif</groupId>
-            <artifactId>easy-file</artifactId>
-            <version>0.1</version>
-        </dependency>
-
         <!-- 测试组件 -->
         <dependency>
             <groupId>com.github.Verlif</groupId>
