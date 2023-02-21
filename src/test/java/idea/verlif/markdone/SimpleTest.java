@@ -1,9 +1,8 @@
 package idea.verlif.markdone;
 
 import idea.verlif.markdone.builder.Inline.InlineItem;
-import idea.verlif.markdone.builder.Inline.SimpleLineItem;
 import idea.verlif.markdone.builder.block.CodeItem;
-import idea.verlif.markdone.builder.block.OrderedListtem;
+import idea.verlif.markdone.builder.block.OrderedListItem;
 import idea.verlif.markdone.builder.block.QuoteItem;
 import idea.verlif.markdone.builder.block.TableItem;
 import org.junit.Test;
@@ -43,7 +42,7 @@ public class SimpleTest {
 
     @Test
     public void orderedBlockBuilder() {
-        OrderedListtem builder = new OrderedListtem(1);
+        OrderedListItem builder = new OrderedListItem(1);
         builder.start()
                 .indexFrom(4)
                 .content("123")
@@ -54,9 +53,10 @@ public class SimpleTest {
 
     @Test
     public void TableBlockBuilder() {
-        TableItem builder = new TableItem(1);
+        TableItem builder = new TableItem();
         builder.start()
-                .titles("1", "2", "3")
+                .titles("1", "2")
+                .title("3", TableItem.FLOW.CENTER)
                 .title("4", TableItem.FLOW.RIGHT)
                 .values("v1", "v2", "v3", "v4")
                 .values("vv1", "vv2", "vv3", "vv4")
@@ -69,14 +69,14 @@ public class SimpleTest {
     @Test
     public void SimpleLineTest() {
         InlineItem inlineItem = new InlineItem()
-                .bold("粗体")
-                .italic("斜体")
-                .code("内嵌代码")
-                .url("https://github.com/")
-                .img("图片", "https://avatars.githubusercontent.com/u/39126497?s=40&v=4", "我的头像")
-                .src("Verlif", "https://github.com/", "github")
-                .delete("删除线")
-                .emoji("smile")
+                .bold("粗体").newLine()
+                .italic("斜体").newLine()
+                .code("内嵌代码").newLine()
+                .url("https://github.com/").newLine()
+                .img("图片", "https://avatars.githubusercontent.com/u/39126497?s=40&v=4", "我的头像").newLine()
+                .src("Verlif", "https://github.com/", "github").newLine()
+                .delete("删除线").newLine()
+                .emoji("smile").newLine()
                 .warpedTag("strong", "strong tag");
         System.out.println(inlineItem.build());
     }

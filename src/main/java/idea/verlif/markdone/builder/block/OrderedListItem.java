@@ -2,16 +2,16 @@ package idea.verlif.markdone.builder.block;
 
 import idea.verlif.markdone.builder.BlockBuilder;
 
-public class OrderedListtem extends BaseBlockItem {
+public class OrderedListItem extends BaseBlockItem {
 
-    public OrderedListtem() {}
+    public OrderedListItem() {}
 
     /**
      * 基础块元素构造器
      *
      * @param level 位置层级，一般表示列表内的不同层级
      */
-    public OrderedListtem(int level) {
+    public OrderedListItem(int level) {
         super(level);
     }
 
